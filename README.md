@@ -6,6 +6,7 @@
 
 ```bash
 git clone https://github.com/Yveradvir/findmaty.git
+cd findmaty
 ```
 
 ```bash
