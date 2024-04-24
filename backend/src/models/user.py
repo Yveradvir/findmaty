@@ -6,9 +6,8 @@ class UsersTable(db.Model, InitialMixin):
     Represent the user table
     """
     __tablename__ = 'users'
-
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(60), nullable=False, unique=True)
+    
+    username = db.Column(db.String(40), nullable=False, unique=True)
     password = db.Column(db.Text, nullable=False)
     email = db.Column(db.String, nullable=False, unique=True)
 

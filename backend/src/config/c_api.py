@@ -2,4 +2,4 @@ from const import Api
 from src.routers import *
 
 def config_api(api: Api):
-    pass
+    api.add_resource(SignUpRoute, SignUpRoute.url)
