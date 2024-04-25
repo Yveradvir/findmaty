@@ -18,3 +18,5 @@ def config_app(app: Flask):
     app.config["JWT_REFRESH_CSRF_COOKIE_NAME"] = "refresh_csrf"
     app.config["JWT_REFRESH_TOKEN_EXPIRES"] = refresh_max_age
 
+    app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://{_g('db_user')}:{_g('db_password')}@{_g('db_host')}/{_g('db_name')}"
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
