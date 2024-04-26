@@ -1,31 +1,42 @@
 from const import *
-
+from werkzeug.security import check_password_hash, generate_password_hash
+from src.models import UsersTable
 
 class SignUpRoute(Resource):
     url = "/auth/signup"
-    user = get.query().filter_by(username=username).first()
-    if user:
-
-
 
     def post(self) -> Response:
         data = request.get_json()
-        user = get.query().filter_by(username=username).first()
-        email = get.query().filter_by(data["email"]).first()
+        user = db.query().filter_by(username=data["username"]).first()
+        email = db.query().filter_by(data["email"]).first()
 
         if not user:
             if not email:
-                new_user = UserTable(**data)
+                data["password"] = generate_password_hash(data["password"])
+                
+                new_user = UsersTable(**data)
+                uid = str(new_user.id)
+
+                response = make_response(
+                    jsonify(
+                        uid=uid
+                    ), 201
+                )
+
+                set_access_cookies(response, create_access_token(uid), access_max_age.seconds)
+                set_access_cookies(response, create_refresh_token(uid), refresh_max_age.seconds)
+
+                return response
             else:
                 return make_response(
                     jsonify(
-                        data=''
-                    ), 201
+                        detail='Email has taken'
+                    ), 409
                 )
         else:
             return make_response(
                 jsonify(
-                    detail=''
+                    detail='User arleady exists'
                 ), 409
             )
 
