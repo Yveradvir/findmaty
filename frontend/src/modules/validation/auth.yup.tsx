@@ -21,5 +21,5 @@ export const SignUpValidation = Yup.object().shape({
         .required("This field is required"),
     email: Yup.string()
         .email("This instance should be an email")
-        .required("This field is required")
+        .required()
 })
